@@ -104,6 +104,10 @@ export const signInUser = async (req, res, next) => {
 //! 3-Function To Logout User:
 export const logoutUser = async (req, res, next) => {
   try {
+    res.clearCookie("access_token");
+    res.status(200).json({
+      message: "User logged out successfully",
+    });
   } catch (error) {
     console.log("Error while logging out user", error.message);
     next(error);
