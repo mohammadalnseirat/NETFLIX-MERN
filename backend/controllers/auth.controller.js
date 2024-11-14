@@ -113,3 +113,16 @@ export const logoutUser = async (req, res, next) => {
     next(error);
   }
 };
+
+//! 4-Function To Get Auth Check User (get the current user OR get the logined user):
+export const getAuthCheck = async (req, res, next) => {
+  try {
+    console.log("req.user = ", req.user); // req.user is comming from the middleware.
+    res.status(200).json({
+      user: req.user,
+    });
+  } catch (error) {
+    console.log("Error while getting auth check user", error.message);
+    next(error);
+  }
+};
