@@ -70,3 +70,19 @@ export const getSimilarMovie = async (req, res, next) => {
     next(error);
   }
 };
+
+//! 5-Function To Get Movie By Category:
+export const getCategoryMovies = async (req, res, next) => {
+  try {
+    const { category } = req.params;
+    const data = await fetchFromTMDB(
+      `https://api.themoviedb.org/3/movie/${category}?language=en-US&page=1`
+    );
+    res.status(200).json({
+      content: data.results,
+    });
+  } catch (error) {
+    console.log("Error getting category movie", error.message);
+    next(error);
+  }
+};
