@@ -37,16 +37,36 @@ export const getTrailersMovie = async (req, res, next) => {
 };
 
 //! 3-Function To Get Movie Details:
-export const getDetailsMovie = async(req,res,next)=>{
+export const getDetailsMovie = async (req, res, next) => {
   try {
-    const {id} = req.params;
-    const data = await fetchFromTMDB(`https://api.themoviedb.org/3/movie/${id}?language=en-US`)
+    const { id } = req.params;
+    const data = await fetchFromTMDB(
+      `https://api.themoviedb.org/3/movie/${id}?language=en-US`
+    );
     res.status(200).json({
-      content:data
-    })
+      content: data,
+    });
   } catch (error) {
-    console.log('Error getting details movies',error.message);
+    if (error.message.includes("404")) {
+      return res.status(404).send(null);
+    }
+    console.log("Error getting details movies", error.message);
     next(error);
-    
   }
-}
+};
+
+//! 4-Function To Get Similar Movies:
+export const getSimilarMovie = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const data = await fetchFromTMDB(
+      `https://api.themoviedb.org/3/movie/${id}/similar?language=en-US&page=1`
+    );
+    res.status(200).json({
+      similar: data.results,
+    });
+  } catch (error) {
+    console.log("Error getting similar movies", error.message);
+    next(error);
+  }
+};
