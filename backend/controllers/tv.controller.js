@@ -28,3 +28,20 @@ export const getTvTrailers = async (req, res, next) => {
     next(error);
   }
 };
+
+//! 3-Function To Get Tv Series Details:
+export const getTvDetails = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const data = await fetchFromTMDB(
+      `https://api.themoviedb.org/3/tv/${id}?language=en-US`
+    );
+    res.status(200).json({
+      content: data,
+    });
+  } catch (error) {
+    if (error.message.includes("404")) return res.status(404).send(null);
+    console.log("Error getting Tv Details", error.message);
+    next(error);
+  }
+};
