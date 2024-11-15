@@ -35,3 +35,18 @@ export const getTrailersMovie = async (req, res, next) => {
     next(error);
   }
 };
+
+//! 3-Function To Get Movie Details:
+export const getDetailsMovie = async(req,res,next)=>{
+  try {
+    const {id} = req.params;
+    const data = await fetchFromTMDB(`https://api.themoviedb.org/3/movie/${id}?language=en-US`)
+    res.status(200).json({
+      content:data
+    })
+  } catch (error) {
+    console.log('Error getting details movies',error.message);
+    next(error);
+    
+  }
+}
