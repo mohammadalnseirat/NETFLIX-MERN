@@ -5,6 +5,8 @@ import connectToMongoDB from "./db/connectDB.js";
 import authRoutes from "./routes/auth.route.js";
 import movieRoutes from "./routes/movie.route.js";
 import tvRoutes from "./routes/tv.route.js";
+import searchRoutes from "./routes/search.router.js";
+import protectedRoute from "./middleWare/protectRoute.js";
 
 dotenv.config();
 const PORT = process.env.PORT || 5000;
@@ -14,8 +16,9 @@ app.use(cookieParser());
 
 // ?Import Routes:
 app.use("/api/v1/auth", authRoutes);
-app.use("/api/v1/movie", movieRoutes);
-app.use("/api/v1/tv", tvRoutes);
+app.use("/api/v1/movie", protectedRoute, movieRoutes);
+app.use("/api/v1/tv", protectedRoute, tvRoutes);
+app.use("/api/v1/search", protectedRoute, searchRoutes);
 
 app.listen(PORT, () => {
   connectToMongoDB();
