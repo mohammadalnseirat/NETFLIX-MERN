@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import connectToMongoDB from "./db/connectDB.js";
 import authRoutes from "./routes/auth.route.js";
+import movieRoutes from "./routes/movie.route.js";
 
 dotenv.config();
 const PORT = process.env.PORT || 5000;
@@ -12,6 +13,7 @@ app.use(cookieParser());
 
 // ?Import Routes:
 app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/movie", movieRoutes);
 
 app.listen(PORT, () => {
   connectToMongoDB();
@@ -28,4 +30,3 @@ app.use((err, req, res, next) => {
     statusCode,
   });
 });
-
