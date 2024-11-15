@@ -62,3 +62,17 @@ export const getTVSimilar = async (req, res, next) => {
     next(error);
   }
 };
+
+//! 5-Function To Get TV By Category:
+export const getTvsByCategory = async (req, res, next) => {
+  try {
+    const { category } = req.params;
+    const data = await fetchFromTMDB(
+      `https://api.themoviedb.org/3/tv/${category}?language=en-US&page=1`
+    );
+    res.status(200).json({ content: data.results });
+  } catch (error) {
+    console.log("Error getting tv by category", error.message);
+    next(error);
+  }
+};
