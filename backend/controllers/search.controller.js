@@ -96,3 +96,15 @@ export const searchTV = async (req, res, next) => {
     next(error);
   }
 };
+
+//! 4- Function To Get Search History:
+export const getSearchHistory = async (req, res, next) => {
+  try {
+    res.status(200).json({
+      content: req.user.searchHistory,
+    });
+  } catch (error) {
+    console.log("Error getting search history", error.message);
+    next(error);
+  }
+};
