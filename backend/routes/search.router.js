@@ -1,9 +1,7 @@
-import express from 'express';
-
+import express from "express";
 
 const router = express.Router();
 
+router.get("/person/:query", searchPerson);
 
-
-
-export default router
+export default router;
