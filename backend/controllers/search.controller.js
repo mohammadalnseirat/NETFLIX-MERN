@@ -50,7 +50,7 @@ export const searchMovie = async (req, res, next) => {
       $push: {
         searchHistory: {
           id: response.results[0].id,
-          title: response.results[0].name,
+          title: response.results[0].title,
           image: response.results[0].poster_path,
           searchType: "movie",
           createdAt: new Date(),
@@ -105,6 +105,25 @@ export const getSearchHistory = async (req, res, next) => {
     });
   } catch (error) {
     console.log("Error getting search history", error.message);
+    next(error);
+  }
+};
+
+//! 5-Function To Delete Item Search History:
+export const removeItemFromSearchHistory = async (req, res, next) => {
+  try {
+    let { id } = req.params; // return the id of the item as a string
+    id = parseInt(id);
+    //? Find The User And Update The Search History Array:
+    await User.findByIdAndUpdate(req.user._id, {
+      $pull: {
+        searchHistory: { id },
+      },
+    });
+    // ? Send The Response:
+    res.status(200).json({ message: "Item deleted successfully" });
+  } catch (error) {
+    console.log("Error deleting item from search history", error.message);
     next(error);
   }
 };
