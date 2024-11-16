@@ -65,3 +65,34 @@ export const searchMovie = async (req, res, next) => {
     next(error);
   }
 };
+
+//! 3-Function To Search For TV Shows:
+export const searchTV = async (req, res, next) => {
+  const { query } = req.params;
+  try {
+    const response = await fetchFromTMDB(
+      `https://api.themoviedb.org/3/search/tv?query=${query}&include_adult=false&language=en-US&page=1`
+    );
+    if (response.results.length === 0) {
+      return res.status(404).send(null);
+    }
+    //? Find The Current User And Update The Search History:
+    await User.findByIdAndUpdate(req.user._id, {
+      $push: {
+        searchHistory: {
+          id: response.results[0].id,
+          title: response.results[0].name,
+          image: response.results[0].poster_path,
+          searchType: "tv",
+          createdAt: new Date(),
+        },
+      },
+    });
+
+    //? Send The Response:
+    res.status(200).json({ content: response.results });
+  } catch (error) {
+    console.log("Error searching for TV Shows", error.message);
+    next(error);
+  }
+};
