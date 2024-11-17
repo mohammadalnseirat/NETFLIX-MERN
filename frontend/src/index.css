@@ -6,3 +6,9 @@
   background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.2)),
     url("hero.png");
 }
+
+.gradient-text {
+  background: linear-gradient(to right, rgba(204, 67, 67, 0.9), red);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
