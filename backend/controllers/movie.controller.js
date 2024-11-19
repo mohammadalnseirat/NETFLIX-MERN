@@ -1,5 +1,4 @@
 import { fetchFromTMDB } from "../services/tmdb.service.js";
-import { handleErrors } from "../utils/error.js";
 
 //!FunctioN To Get Trending Movies:
 export const getTrendingMovie = async (req, res, next) => {

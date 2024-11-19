@@ -14,7 +14,6 @@ import { Loader } from "lucide-react";
 
 const App = () => {
   const { user, authCheck, isCheckingAuth } = useAuthStore();
-  console.log("User is here: ", user);
 
   //?useEffect To Check Authentication:
   useEffect(() => {
