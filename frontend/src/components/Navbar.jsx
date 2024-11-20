@@ -1,5 +1,5 @@
 import { Loader, LogOut, Menu, Search } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useAuthStore } from "../store/authUser";
 import { useState } from "react";
 import { useContentStore } from "../store/content";
@@ -8,7 +8,7 @@ const Navbar = () => {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const { user, logOut, isLoggoingOut } = useAuthStore();
 
-  //! Function To Toggle Navigation:
+  // ! Function To Toggle Navigation:
   const toggleMenu = () => setIsMobileOpen(!isMobileOpen);
 
   //? use content store to update the type of content:
@@ -46,7 +46,7 @@ const Navbar = () => {
           </Link>
           <Link
             to={"/history"}
-            className=" font-semibold hover:text-red-500 hover:underline hover:underline-offset-2"
+            className={`font-semibold hover:text-red-500 hover:underline hover:underline-offset-2`}
           >
             Search History
           </Link>
@@ -83,22 +83,32 @@ const Navbar = () => {
         <div className="w-full sm:hidden mt-4 z-50 bg-black border rounded-md border-red-600 transition-all duration-300">
           <Link
             to={"/"}
-            onClick={toggleMenu}
-            className="p-2 block hover:underline"
+            onClick={() => {
+              setContentType("movie");
+              toggleMenu();
+            }}
+            className={`p-2 block hover:underline ${
+              contentType === "movie" && "underline text-red-600"
+            }`}
           >
             Movie
           </Link>
           <Link
             to={"/"}
-            onClick={toggleMenu}
-            className="p-2 block hover:underline"
+            onClick={() => {
+              setContentType("tv");
+              toggleMenu();
+            }}
+            className={`p-2 block hover:underline ${
+              contentType === "tv" && "underline text-red-600"
+            }`}
           >
             TV Shows
           </Link>
           <Link
             to={"/history"}
             onClick={toggleMenu}
-            className="p-2 block hover:underline"
+            className={`p-2 block hover:underline `}
           >
             Search History
           </Link>
