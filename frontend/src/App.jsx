@@ -31,7 +31,7 @@ const App = () => {
     );
   }
   return (
-    <div>
+    <>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route
@@ -58,7 +58,7 @@ const App = () => {
       </Routes>
       <Footer />
       <Toaster />
-    </div>
+    </>
   );
 };
 
